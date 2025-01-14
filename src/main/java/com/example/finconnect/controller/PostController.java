@@ -1,43 +1,44 @@
 package com.example.finconnect.controller;
 
 import com.example.finconnect.model.Post;
-import org.springframework.http.HttpStatus;
+import com.example.finconnect.model.PostPostRequestBody;
+import com.example.finconnect.service.PostService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.inject.Inject;
 
 @RestController
+@RequestMapping("/api/v1/posts")
 public class PostController {
 
-    @GetMapping("/api/v1/posts")
+    private final PostService postService;
+
+    @Inject
+    public PostController(PostService postService) {
+        this.postService = postService; }
+
+    @GetMapping
     public ResponseEntity<List<Post>> getPosts() {
-        List<Post> posts = new ArrayList<>();
-
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-
-        return new ResponseEntity<>(posts, HttpStatus.OK);
+        List<Post> posts = postService.getPosts();
+        return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/api/v1/posts/{postId}")
-    public ResponseEntity<Post> getPost(@PathVariable Long postId) {
-        List<Post> posts = new ArrayList<>();
-
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1l, "Post1", ZonedDateTime.now()));
-        Optional<Post> matchingPost =
-                posts.stream().filter(post -> postId.equals(post.getPostId())).findFirst();
-
+    @GetMapping("/{postId}")
+    public ResponseEntity<Post> getPostByPostId(@PathVariable Long postId) {
+        Optional<Post> matchingPost = postService.getPostId(postId);
         return matchingPost
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity
+                        .notFound()
+                        .build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Post> creatPost(@RequestBody PostPostRequestBody postPostRequestBody) {
+        var post = postService.creatPost(postPostRequestBody);
+        return ResponseEntity.ok(post);
     }
 }
