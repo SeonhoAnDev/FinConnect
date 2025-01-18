@@ -1,8 +1,14 @@
 package com.example.finconnect.service;
 
 import com.example.finconnect.model.Post;
+import com.example.finconnect.model.PostPatchRequestBody;
 import com.example.finconnect.model.PostPostRequestBody;
+import com.example.finconnect.model.entity.PostEntity;
+import com.example.finconnect.repository.PostEntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -11,29 +17,50 @@ import java.util.Optional;
 
 @Service
 public class PostService {
-
     private static final List<Post> posts = new ArrayList<>();
-
-    static {
-        posts.add(new Post(1L, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1L, "Post1", ZonedDateTime.now()));
-        posts.add(new Post(1L, "Post1", ZonedDateTime.now()));
-    }
+    @Autowired
+    private PostEntityRepository postEntityRepository;
 
     public List<Post> getPosts() {
-        return posts;
+        var postEntities = postEntityRepository.findAll();
+
+        return postEntities.stream().map(Post::from).toList();
     }
 
-    public Optional<Post> getPostId(Long postId) {
-        return posts.stream().filter(post -> postId.equals(post.postId())).findFirst();
+    public Post getPostByPostId(Long postId) {
+        var postEntity =
+                postEntityRepository
+                        .findById(postId)
+                        .orElseThrow(
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return Post.from(postEntity);
     }
 
     public Post creatPost(PostPostRequestBody postpostRequestBody) {
-        Long newPostId = posts.stream().mapToLong(Post::postId).max().orElse(0L) + 1;
+        var postEntity = new PostEntity();
+        postEntity.setBody(postpostRequestBody.body());
+        var savedPostEntity = postEntityRepository.save(postEntity);
+        return Post.from(savedPostEntity);
+    }
 
-        Post newPost = new Post(newPostId, postpostRequestBody.body(), ZonedDateTime.now());
-        posts.add(newPost);
+    public Post updatePost(Long postId, PostPatchRequestBody postpatchRequestBody) {
+        var postEntity =
+                postEntityRepository
+                        .findById(postId)
+                        .orElseThrow(
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        postEntity.setBody(postpatchRequestBody.body());
+        var savedPostEntity = postEntityRepository.save(postEntity);
+        return Post.from(savedPostEntity);
+    }
 
-        return newPost;
+    public void deletePost(Long postId) {
+        var postEntity =
+                postEntityRepository
+                        .findById(postId)
+                        .orElseThrow(
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        postEntityRepository.delete(postEntity);
     }
 }
