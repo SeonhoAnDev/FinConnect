@@ -10,9 +10,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/finConnet-db
-    username: finConnet-master
+    url: jdbc:postgresql://localhost:5432/finConnect-db
+    username: finConnect-master
     password: root
+  security:
+    user:
+      name: finConnect-master
+      password: root
 logging:
   level:
     org.hibernate.type: trace
