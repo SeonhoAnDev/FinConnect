@@ -1,5 +1,6 @@
 package com.example.finconnect.service;
 
+import com.example.finconnect.exception.Post.PostNotFoundException;
 import com.example.finconnect.model.Post;
 import com.example.finconnect.model.PostPatchRequestBody;
 import com.example.finconnect.model.PostPostRequestBody;
@@ -28,12 +29,12 @@ public class PostService {
     }
 
     public Post getPostByPostId(Long postId) {
+
         var postEntity =
                 postEntityRepository
                         .findById(postId)
                         .orElseThrow(
-                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+                                () -> new PostNotFoundException(postId));
         return Post.from(postEntity);
     }
 
@@ -49,7 +50,7 @@ public class PostService {
                 postEntityRepository
                         .findById(postId)
                         .orElseThrow(
-                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                                () -> new PostNotFoundException(postId));
         postEntity.setBody(postpatchRequestBody.body());
         var savedPostEntity = postEntityRepository.save(postEntity);
         return Post.from(savedPostEntity);
@@ -60,7 +61,7 @@ public class PostService {
                 postEntityRepository
                         .findById(postId)
                         .orElseThrow(
-                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                                () -> new PostNotFoundException(postId));
         postEntityRepository.delete(postEntity);
     }
 }

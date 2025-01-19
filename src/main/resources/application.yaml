@@ -19,8 +19,10 @@ spring:
       password: root
 logging:
   level:
-    org.hibernate.type: trace
-    org.hibernate.orm.jdbc.bind: trace
-    org.hibernate.engine.transaction.internal.TransactionImpl: debug
-    org.springframework.orm.jpa: debug
-    org.springframework.transaction: debug
+    root: warn
+#    org.hibernate.type: warn
+#    org.hibernate.orm.jdbc.bind: warn
+#    org.hibernate.engine.transaction.internal.TransactionImpl: warn
+#    org.springframework.orm.jpa: warn
+#    org.springframework.transaction: warn
+
