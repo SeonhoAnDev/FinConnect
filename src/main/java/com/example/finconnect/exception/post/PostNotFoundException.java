@@ -1,4 +1,4 @@
-package com.example.finconnect.exception.Post;
+package com.example.finconnect.exception.post;
 
 import com.example.finconnect.exception.ClientErrorException;
 import org.springframework.http.HttpStatus;
