@@ -1,9 +1,9 @@
 package com.example.finconnect.service;
 
 import com.example.finconnect.exception.post.PostNotFoundException;
-import com.example.finconnect.model.Post;
-import com.example.finconnect.model.PostPatchRequestBody;
-import com.example.finconnect.model.PostPostRequestBody;
+import com.example.finconnect.model.post.Post;
+import com.example.finconnect.model.post.PostPatchRequestBody;
+import com.example.finconnect.model.post.PostPostRequestBody;
 import com.example.finconnect.model.entity.PostEntity;
 import com.example.finconnect.repository.PostEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;

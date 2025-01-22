@@ -1,4 +1,4 @@
-package com.example.finconnect.model;
+package com.example.finconnect.model.post;
 
 import com.example.finconnect.model.entity.PostEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;

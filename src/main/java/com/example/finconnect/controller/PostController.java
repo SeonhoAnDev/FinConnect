@@ -1,8 +1,8 @@
 package com.example.finconnect.controller;
 
-import com.example.finconnect.model.Post;
-import com.example.finconnect.model.PostPatchRequestBody;
-import com.example.finconnect.model.PostPostRequestBody;
+import com.example.finconnect.model.post.Post;
+import com.example.finconnect.model.post.PostPatchRequestBody;
+import com.example.finconnect.model.post.PostPostRequestBody;
 import com.example.finconnect.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

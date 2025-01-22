@@ -29,7 +29,7 @@ public class UserEntity implements UserDetails {
     @Setter
     private String username;
 
-    @Column
+    @Column(nullable = false)
     @Setter
     private String password;
 
