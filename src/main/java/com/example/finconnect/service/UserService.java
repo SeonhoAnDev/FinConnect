@@ -1,13 +1,12 @@
 package com.example.finconnect.service;
 
 import com.example.finconnect.exception.user.UserAlreadyExistsException;
+import com.example.finconnect.exception.user.UserNotFoundException;
 import com.example.finconnect.model.entity.UserEntity;
 import com.example.finconnect.model.user.User;
 import com.example.finconnect.model.user.UserAuthenticationResponse;
 import com.example.finconnect.repository.UserEntityRepository;
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,7 +43,7 @@ public class UserService implements UserDetailsService {
         return User.from(userEntity);
     }
 
-    public UserAuthenticationResponse authenticate(@NotEmpty String username, @NotEmpty String password) {
+    public UserAuthenticationResponse authenticate( String username,  String password) {
         var userEntity = userEntityRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
@@ -52,7 +51,7 @@ public class UserService implements UserDetailsService {
             var accessToken = jwtService.generateAccessToken(userEntity);
             return new UserAuthenticationResponse(accessToken);
         } else {
-            throw new UsernameNotFoundException(username);
+            throw new UserNotFoundException();
         }
     }
 }

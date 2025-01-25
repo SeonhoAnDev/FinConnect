@@ -20,6 +20,16 @@ spring:
 logging:
   level:
     root: warn
+    org:
+      springframework:
+        security:
+          web:
+            FilterChainProxy: info
+          authorization:
+            RequestMatcherDelegatingAuthorizationManager: info
+            authentication:
+              ExceptionTranslationFilter: info
+
 #    org.hibernate.type: warn
 #    org.hibernate.orm.jdbc.bind: warn
 #    org.hibernate.engine.transaction.internal.TransactionImpl: warn

@@ -41,20 +41,24 @@ public class webConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
-                        (requests) ->
-                                requests
-                                        //todo エラー除外処理が動かなかったので今後修正必要
-                                        .requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate")
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated())
+                        (requests) -> {
+                            //todo 修正必要
+                            requests.requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate")
+                                    .permitAll();
+                            requests.anyRequest().authenticated();
+                        })
                 .sessionManagement(
                         (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(CsrfConfigurer::disable)
-                .addFilterBefore(jwtExceptionFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, jwtExceptionFilter.getClass())
+                .addFilterBefore(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtExceptionFilter, jwtAuthenticationFilter.getClass())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
+
+
 }
+
+
