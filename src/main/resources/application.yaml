@@ -24,11 +24,11 @@ logging:
       springframework:
         security:
           web:
-            FilterChainProxy: info
+            FilterChainProxy: trace
           authorization:
-            RequestMatcherDelegatingAuthorizationManager: info
+            RequestMatcherDelegatingAuthorizationManager: trace
             authentication:
-              ExceptionTranslationFilter: info
+              ExceptionTranslationFilter: trace
 
 #    org.hibernate.type: warn
 #    org.hibernate.orm.jdbc.bind: warn

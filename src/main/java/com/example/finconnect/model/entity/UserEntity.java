@@ -10,53 +10,56 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+@Setter
 @Entity
-@Table(name = " \"user\"")
+@Table(name = "\"user\"",
+        indexes = {@Index(name = "user_username_idx", columnList = "username", unique = true)})
 @SQLDelete(sql = "UPDATE \"user\" SET deleteddatetime = CURRENT_TIMESTAMP WHERE userid = ?")
 @SQLRestriction("deleteddatetime IS NULL")
 public class UserEntity implements UserDetails {
     @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     @Column(unique = true, nullable = false)
-    @Setter
     private String username;
 
     @Column(nullable = false)
-    @Setter
     private String password;
 
     @Getter
-    @Setter
     @Column
     private String profile;
 
     @Getter
-    @Setter
     @Column
     private String desription;
 
     @Getter
-    @Setter
     @Column
     private ZonedDateTime createddatetime;
 
     @Getter
-    @Setter
     @Column
     private ZonedDateTime updateddatetime;
 
     @Getter
-    @Setter
     @Column
     private ZonedDateTime deleteddatetime;
+
+    public static UserEntity of(String username, String password) {
+        var userEntity = new UserEntity();
+        userEntity.setUsername(username);
+        userEntity.setPassword(password);
+
+        userEntity.setProfile("https://avatar.iran.liara.run/piublic/" + new Random().nextInt(100));
+
+        return userEntity;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -104,16 +107,6 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public static UserEntity of(String username, String password) {
-        var userEntity = new UserEntity();
-        userEntity.setUsername(username);
-        userEntity.setPassword(password);
-
-        userEntity.setProfile("https://avatar.iran.liara.run/piublic/" + new Random().nextInt(100));
-
-        return userEntity;
     }
 
     @PrePersist

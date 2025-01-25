@@ -42,7 +42,7 @@ public class webConfiguration {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         (requests) -> {
-                            //todo 修正必要
+                            //todo 修正必要①
                             requests.requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate")
                                     .permitAll();
                             requests.anyRequest().authenticated();

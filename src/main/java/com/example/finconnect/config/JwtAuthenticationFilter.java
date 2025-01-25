@@ -26,6 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
 
+    //todo 修正必要①
     @Autowired
     private UserService userService;
     private static final List<String> EXCLUDE_URL_PATTERNS = Arrays.asList(
@@ -41,15 +42,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         var securityContext = SecurityContextHolder.getContext();
         String requestURI = request.getRequestURI();
+        String method = request.getMethod();
 
-        //todo 修正後削除必要
+        //todo 修正後削除必要①
+        if ("POST".equalsIgnoreCase(method)) {
             for (String pattern : EXCLUDE_URL_PATTERNS) {
                 if (requestURI.matches(pattern)) {
                     filterChain.doFilter(request, response);
                     return;
                 }
             }
-
+        }
 
         if (ObjectUtils.isEmpty(authorization) || !authorization.startsWith(BEARER_PREFIX)) {
             throw new JwtTokenNotFoundException();
