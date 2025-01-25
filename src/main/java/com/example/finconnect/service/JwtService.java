@@ -49,6 +49,7 @@ public class JwtService {
 
         } catch (JwtException e) {
             logger.error("JwtException", e);
+            throw e;
         }
     }
 }

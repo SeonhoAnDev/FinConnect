@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -43,15 +43,16 @@ public class webConfiguration {
                 .authorizeHttpRequests(
                         (requests) ->
                                 requests
-                                        .requestMatchers(HttpMethod.POST, "/api/*/users", "/api/*/users/authenticate")
+                                        //todo エラー除外処理が動かなかったので今後修正必要
+                                        .requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
                 .sessionManagement(
                         (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(CsrfConfigurer::disable)
                 .addFilterBefore(jwtExceptionFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, jwtExceptionFilter.getClass())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
