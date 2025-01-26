@@ -43,14 +43,15 @@ public class webConfiguration {
                 .authorizeHttpRequests(
                         (requests) -> {
                             //todo 修正必要①
-                            requests.requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate")
-                                    .permitAll();
-                            requests.anyRequest().authenticated();
+                            requests.requestMatchers(
+                                    HttpMethod.POST, "/api/*/users", "/api/*/users/authenticate")
+                                    .permitAll()
+                                    .anyRequest()
+                                    .authenticated();
                         })
                 .sessionManagement(
                         (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(CsrfConfigurer::disable)
-                .addFilterBefore(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, jwtAuthenticationFilter.getClass())
                 .httpBasic(Customizer.withDefaults());
