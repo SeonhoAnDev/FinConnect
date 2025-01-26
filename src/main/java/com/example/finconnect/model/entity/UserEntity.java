@@ -14,13 +14,13 @@ import java.util.Objects;
 import java.util.Random;
 
 @Setter
+@Getter
 @Entity
 @Table(name = "\"user\"",
         indexes = {@Index(name = "user_username_idx", columnList = "username", unique = true)})
 @SQLDelete(sql = "UPDATE \"user\" SET deleteddatetime = CURRENT_TIMESTAMP WHERE userid = ?")
 @SQLRestriction("deleteddatetime IS NULL")
 public class UserEntity implements UserDetails {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -31,25 +31,39 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Getter
     @Column
     private String profile;
 
-    @Getter
     @Column
     private String desription;
 
-    @Getter
+    @Column
+    private Long followersCount;
+
+    @Column
+    private Long followingsCount;
+
     @Column
     private ZonedDateTime createddatetime;
 
-    @Getter
     @Column
     private ZonedDateTime updateddatetime;
 
-    @Getter
     @Column
     private ZonedDateTime deleteddatetime;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(profile, that.profile) && Objects.equals(desription, that.desription) && Objects.equals(followersCount, that.followersCount) && Objects.equals(followingsCount, that.followingsCount) && Objects.equals(createddatetime, that.createddatetime) && Objects.equals(updateddatetime, that.updateddatetime) && Objects.equals(deleteddatetime, that.deleteddatetime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, username, password, profile, desription, followersCount, followingsCount, createddatetime, updateddatetime, deleteddatetime);
+    }
 
     public static UserEntity of(String username, String password) {
         var userEntity = new UserEntity();
@@ -62,31 +76,8 @@ public class UserEntity implements UserDetails {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(profile, that.profile) && Objects.equals(desription, that.desription) && Objects.equals(createddatetime, that.createddatetime) && Objects.equals(updateddatetime, that.updateddatetime) && Objects.equals(deleteddatetime, that.deleteddatetime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, username, password, profile, desription, createddatetime, updateddatetime, deleteddatetime);
-    }
-
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 
     @Override

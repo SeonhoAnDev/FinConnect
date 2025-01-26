@@ -10,6 +10,8 @@ import java.time.ZonedDateTime;
 public record Post(
          Long postId,
          String body,
+         Long repliesCount,
+         Long likesCount,
          User user,
          ZonedDateTime createdDateTime,
          ZonedDateTime updateDateTime,
@@ -18,6 +20,8 @@ public record Post(
         return new Post(
                 postEntity.getPostId(),
                 postEntity.getBody(),
+                postEntity.getRepliesCount(),
+                postEntity.getLikesCount(),
                 User.from(postEntity.getUser()),
                 postEntity.getCreatedDateTime(),
                 postEntity.getUpdatedDateTime(),

@@ -9,6 +9,8 @@ public record User(
         String username,
         String profile,
         String desription,
+        Long followersCount,
+        Long followingsCount,
         ZonedDateTime createddatetime,
         ZonedDateTime updateddatetime,
         ZonedDateTime deleteddatetime
@@ -19,6 +21,8 @@ public record User(
                 user.getUsername(),
                 user.getProfile(),
                 user.getDesription(),
+                user.getFollowersCount(),
+                user.getFollowingsCount(),
                 user.getCreateddatetime(),
                 user.getUpdateddatetime(),
                 user.getDeleteddatetime());

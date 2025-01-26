@@ -48,6 +48,20 @@ public class UserController {
         return ResponseEntity.ok(posts);
     }
 
+    @PostMapping("/{username}/follows")
+    public ResponseEntity<User> follow(
+            @PathVariable String username, Authentication authentication) {
+        var user = userService.follow(username, (UserEntity) authentication.getPrincipal());
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/{username}/follows")
+    public ResponseEntity<User> unfollow(
+            @PathVariable String username, Authentication authentication) {
+        var user = userService.unfollow(username, (UserEntity) authentication.getPrincipal());
+        return ResponseEntity.ok(user);
+    }
+
     @PostMapping
     public ResponseEntity<User> signUp(
             @Valid @RequestBody
