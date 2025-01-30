@@ -4,9 +4,12 @@ import com.example.finconnect.model.entity.UserEntity;
 import com.example.finconnect.model.post.Post;
 import com.example.finconnect.model.post.PostPatchRequestBody;
 import com.example.finconnect.model.post.PostPostRequestBody;
+import com.example.finconnect.model.user.LikedUser;
 import com.example.finconnect.service.PostService;
+import com.example.finconnect.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +23,9 @@ public class PostController {
 
     private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
-    private final PostService postService;
+    @Autowired private PostService postService;
+
+    @Autowired private UserService userService;
 
     @Inject
     public PostController(PostService postService) {
@@ -28,17 +33,27 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getPosts() {
+    public ResponseEntity<List<Post>> getPosts(Authentication authentication) {
         logger.info("GET /api/v1/posts");
-        var posts = postService.getPosts();
+        var posts = postService.getPosts((UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<Post> getPostByPostId(@PathVariable Long postId) {
+    public ResponseEntity<Post> getPostByPostId(
+            @PathVariable Long postId, Authentication authentication) {
         logger.info("GET /api/v1/posts/{}", postId);
-        var post = postService.getPostByPostId(postId);
+        var post = postService.getPostByPostId(postId, (UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/{postId}/liked-users")
+    public ResponseEntity<List<LikedUser>> getLikedUserPostByPostId(
+            @PathVariable Long postId, Authentication authentication) {
+        var likedUser = userService.getLikedUsersByPostId(
+                postId, (UserEntity) authentication.getPrincipal()
+        );
+        return ResponseEntity.ok(likedUser);
     }
 
     @PostMapping

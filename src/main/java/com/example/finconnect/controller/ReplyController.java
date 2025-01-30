@@ -53,6 +53,4 @@ public class ReplyController {
                 postId, replyId,(UserEntity) authentication.getPrincipal());
         return ResponseEntity.noContent().build();
     }
-
-
 }

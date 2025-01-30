@@ -3,6 +3,7 @@ package com.example.finconnect.service;
 import com.example.finconnect.exception.post.PostNotFoundException;
 import com.example.finconnect.exception.reply.ReplyNotFoundException;
 import com.example.finconnect.exception.user.UserNotAllowedException;
+import com.example.finconnect.exception.user.UserNotFoundException;
 import com.example.finconnect.model.entity.ReplyEntity;
 import com.example.finconnect.model.entity.UserEntity;
 import com.example.finconnect.model.post.Post;
@@ -89,5 +90,14 @@ public class ReplyService {
 
         postEntity.setRepliesCount(Math.max(0,postEntity.getRepliesCount() - 1));
         postEntityRepository.save(postEntity);
+    }
+
+    public List<Reply> getRepliesByUser(String username) {
+        var userEntity =
+                userEntityRepository
+                        .findByUsername(username)
+                        .orElseThrow(() -> new UserNotFoundException(username));
+        var replyEntities = replyEntityRepository.findByUser(userEntity);
+        return replyEntities.stream().map(Reply::from).toList();
     }
 }
