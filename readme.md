@@ -34,7 +34,7 @@
 ### バックエンド
 - **メイン言語・フレームワーク**
   - Java
-  - Spring Boot 3.x
+  - Spring Boot 3.4.1
   
 - **データベース**
   - PostgreSQL
@@ -50,16 +50,16 @@
 - Git（バージョン管理）
 
 ## システム構成図
-src/
-├── main/
-│ ├── java/
-│ │ └── com.finconnect/
-│ │ ├── config/ # 設定ファイル
-│ │ ├── controller/ # APIエンドポイント
-│ │ ├── model/ # エンティティ
-│ │ ├── repository/ # データアクセス
-│ │ └── service/ # ビジネスロジック
-└─└─── resources/
+src/　　
+├── main/　　
+│ ├── java/　　
+│ │ └── com.finconnect/　　
+│ │ ├── config/ # 設定ファイル　　
+│ │ ├── controller/ # APIエンドポイント　　
+│ │ ├── model/ # エンティティ　　
+│ │ ├── repository/ # データアクセス　　
+│ │ └── service/ # ビジネスロジック　　
+└─└─── resources/　　
 
 
 ## 主要API一覧
