@@ -35,7 +35,7 @@ public class UserEntity implements UserDetails {
     private String profile;
 
     @Column
-    private String desription;
+    private String description;
 
     @Column
     private Long followersCount;
@@ -57,12 +57,12 @@ public class UserEntity implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(profile, that.profile) && Objects.equals(desription, that.desription) && Objects.equals(followersCount, that.followersCount) && Objects.equals(followingsCount, that.followingsCount) && Objects.equals(createddatetime, that.createddatetime) && Objects.equals(updateddatetime, that.updateddatetime) && Objects.equals(deleteddatetime, that.deleteddatetime);
+        return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(profile, that.profile) && Objects.equals(description, that.description) && Objects.equals(followersCount, that.followersCount) && Objects.equals(followingsCount, that.followingsCount) && Objects.equals(createddatetime, that.createddatetime) && Objects.equals(updateddatetime, that.updateddatetime) && Objects.equals(deleteddatetime, that.deleteddatetime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, password, profile, desription, followersCount, followingsCount, createddatetime, updateddatetime, deleteddatetime);
+        return Objects.hash(userId, username, password, profile, description, followersCount, followingsCount, createddatetime, updateddatetime, deleteddatetime);
     }
 
     public static UserEntity of(String username, String password) {
@@ -70,7 +70,7 @@ public class UserEntity implements UserDetails {
         userEntity.setUsername(username);
         userEntity.setPassword(password);
 
-        userEntity.setProfile("https://avatar.iran.liara.run/piublic/" + new Random().nextInt(100));
+        userEntity.setProfile("https://avatar.iran.liara.run/public/" + new Random().nextInt(100));
 
         return userEntity;
     }

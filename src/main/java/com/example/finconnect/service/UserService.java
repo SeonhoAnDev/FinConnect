@@ -114,7 +114,7 @@ public class UserService implements UserDetailsService {
         }
 
         if (userPatchRequestBody.description() != null) {
-            userEntity.setDesription(userPatchRequestBody.description());
+            userEntity.setDescription(userPatchRequestBody.description());
         }
 
         return User.from(userEntityRepository.save(userEntity));
@@ -122,10 +122,9 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User follow(String username, UserEntity currentUser) {
-        var following =
-                userEntityRepository
-                        .findByUsername(username)
-                        .orElseThrow(() -> new UserNotFoundException(username));
+        var following = userEntityRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         if (following.equals(currentUser)) {
             throw new InvalidFollowException("A user cannot follow themselves.");
@@ -135,12 +134,20 @@ public class UserService implements UserDetailsService {
                 .ifPresent(followEntity -> {
                     throw new FollowAlreadyExistsException(currentUser, following);
                 });
-        followEntityRepository.save(
-                FollowEntity.of(currentUser, following)
-        );
+
+        // null 체크 및 초기화 추가
+        if (following.getFollowersCount() == null) {
+            following.setFollowersCount(0L);
+        }
+
+        if (currentUser.getFollowingsCount() == null) {
+            currentUser.setFollowingsCount(0L);
+        }
+
+        followEntityRepository.save(FollowEntity.of(currentUser, following));
 
         following.setFollowersCount(following.getFollowersCount() + 1);
-        currentUser.setFollowingsCount(following.getFollowingsCount() + 1);
+        currentUser.setFollowingsCount(currentUser.getFollowingsCount() + 1);
 
         userEntityRepository.saveAll(List.of(following, currentUser));
 
@@ -193,7 +200,7 @@ public class UserService implements UserDetailsService {
                         .orElseThrow(() -> new UserNotFoundException(username));
         var followEntities = followEntityRepository.findByFollower(follower);
         return followEntities.stream()
-                .map(follow -> getUserWithFollowingStatus(follow.getFollower(), currentUser))
+                .map(follow -> getUserWithFollowingStatus(follow.getFollowing(), currentUser))  // getFollowing으로 수정
                 .toList();
     }
 
@@ -232,3 +239,5 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 }
+
+

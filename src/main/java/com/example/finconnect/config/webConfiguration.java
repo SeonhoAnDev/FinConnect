@@ -28,29 +28,31 @@ public class webConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3001", "http://192.168.222.73:3001", "http://0.0.0.0:3001"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "Accept"));
         configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(List.of("Authorization"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/v1/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);  // 모든 경로에 대해 CORS 설정 적용
         return source;
     }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults())
+        http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
-                        (requests) -> {
-                            //todo 修正必要①
-                            requests.requestMatchers(
-                                    HttpMethod.POST, "/api/*/users", "/api/*/users/authenticate")
-                                    .permitAll()
-                                    .anyRequest()
-                                    .authenticated();
-                        })
+                        (requests) -> requests
+                                .requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate").permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // OPTIONS 요청 허용
+                                .anyRequest().authenticated()
+                )
                 .sessionManagement(
-                        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .csrf(CsrfConfigurer::disable)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, jwtAuthenticationFilter.getClass())
@@ -58,8 +60,6 @@ public class webConfiguration {
 
         return http.build();
     }
-
-
 }
 
 
