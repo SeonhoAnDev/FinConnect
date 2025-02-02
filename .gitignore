@@ -1,21 +1,23 @@
-# 保持したいファイル以外を全て除外
+# すべてのファイルを無視
 *
-!.gitignore
 
-# 保持したいファイルを明示的に含める
+# 以下のファイルのみを追跡
+!.gitignore
 !settings.gradle
 !readme.md
 !HELP.md
 !build.gradle
-!src
-!img
+!src/
+!img/
 
-# srcディレクトリ内の不要なファイルを除外
+# srcディレクトリの設定
+!src/**
 src/**/build/
 src/**/.gradle/
 src/**/out/
 src/**/*.class
 
-# imgディレクトリ内の不要なファイルを除外
+# imgディレクトリの設定
+!img/**
 img/**/*.psd
 img/**/*.ai
