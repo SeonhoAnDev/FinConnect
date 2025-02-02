@@ -17,7 +17,7 @@
 ### 2. 投稿機能
 <div align="center">
 <img src="./img/掲示物画面（いいね）.jpeg" width="400">
-<img src="./img/掲示物作成.jpeg" width="400">
+<img src="./img/掲示物作成.png" width="400">
 <img src="./img/コメント機能２.jpeg" width="400">
 </div>
 
@@ -45,7 +45,7 @@
 
 ### 5. モバイル対応
 <div align="center">
-<img src="./img/モバイル.jpeg" width="250">
+<img src="./img/モバイル.png" width="250">
 </div>
 
 - スマートフォンに最適化された表示
