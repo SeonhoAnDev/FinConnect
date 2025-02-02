@@ -50,42 +50,92 @@
 - Git（バージョン管理）
 
 ## システム構成図
-src/　　
-├── main/　　
-│ ├── java/　　
-│ │ └── com.finconnect/　　
-│ │ ├── config/ # 設定ファイル　　
-│ │ ├── controller/ # APIエンドポイント　　
-│ │ ├── model/ # エンティティ　　
-│ │ ├── repository/ # データアクセス　　
-│ │ └── service/ # ビジネスロジック　　
-└─└─── resources/　　
-
+```
+src/
+├── main/
+│ ├── java/
+│ │ └── com.finconnect/
+│ │ ├── config/ # 設定ファイル
+│ │ ├── controller/ # APIエンドポイント
+│ │ ├── model/ # エンティティ
+│ │ ├── repository/ # データアクセス
+│ │ └── service/ # ビジネスロジック
+└─└─── resources/
+```
 
 ## 主要API一覧
-### ユーザー関連
+
+### 認証関連
 - `POST /api/v1/auth/signup` - 会員登録
 - `POST /api/v1/auth/login` - ログイン
-- `GET /api/v1/users/{id}` - ユーザー情報取得
-- `PUT /api/v1/users/{id}` - ユーザー情報更新
+
+### ユーザー関連
+- `GET /api/v1/users` - ユーザー検索
+- `GET /api/v1/users/{username}` - ユーザー情報取得
+- `PATCH /api/v1/users/{username}` - ユーザー情報更新
 
 ### 投稿関連
 - `GET /api/v1/posts` - 投稿一覧取得
 - `POST /api/v1/posts` - 投稿作成
-- `PUT /api/v1/posts/{id}` - 投稿更新
-- `DELETE /api/v1/posts/{id}` - 投稿削除
+- `PATCH /api/v1/posts/{postId}` - 投稿更新
+- `DELETE /api/v1/posts/{postId}` - 投稿削除
+
+### 返信関連
+- `GET /api/v1/posts/{postId}/replies` - 返信一覧取得
+- `POST /api/v1/posts/{postId}/replies` - 返信作成
+- `PATCH /api/v1/posts/{postId}/replies/{replyId}` - 返信更新
+- `DELETE /api/v1/posts/{postId}/replies/{replyId}` - 返信削除
 
 ### ソーシャル機能
-- `POST /api/v1/follows/{userId}` - フォロー
-- `DELETE /api/v1/follows/{userId}` - フォロー解除
-- `GET /api/v1/users/{id}/followers` - フォロワー一覧
-- `GET /api/v1/users/{id}/following` - フォロー中一覧
+- `POST /api/v1/users/{username}/follow` - フォロー
+- `DELETE /api/v1/users/{username}/follow` - フォロー解除
+- `GET /api/v1/users/{username}/followers` - フォロワー一覧
+- `GET /api/v1/users/{username}/following` - フォロー中一覧
+
+### いいね機能
+- `POST /api/v1/posts/{postId}/like` - いいね切り替え
+- `GET /api/v1/posts/{postId}/likes` - いいねユーザー一覧
+
+### 認証
+すべてのAPI（認証系を除く）は、以下の形式でJWTトークンが必要：
+Authorization: Bearer {access_token}
+
+### エラーレスポンス
+- 400: Bad Request
+- 401: Unauthorized 
+- 403: Forbidden
+- 404: Not Found
+- 500: Internal Server Error
 
 ## 今後の展望
-- クラウドプラットフォームへのデプロイ
-- マイクロサービスアーキテクチャの採用検討
+
+### インフラストラクチャ
+- AWSクラウドプラットフォームへのデプロイ予定
 - パフォーマンス最適化
 - セキュリティ強化
+
+### 新規機能追加予定
+#### コミュニケーション機能の拡張
+- リアルタイムチャット機能
+- グループチャット機能
+
+#### 金融情報ダッシュボード
+- リアルタイム金融ニュース配信
+- 主要な金融指標のビジュアル化
+- カスタマイズ可能なウィジェット
+
+#### コミュニティ管理機能
+- 金融関連の勉強会グループ作成
+- イベント管理機能
+- グループ別の掲示板機能
+
+#### プラットフォーム内通貨システム
+- プラットフォーム内で使用可能な独自通貨
+- コミュニティ活動による通貨獲得
+- ユーザー間での取引可能
+- 投資シミュレーションへの活用
+- コミュニティ内での経済活動促進
+- イベント参加やコンテンツ購入に使用可能
 
 ## 開発者
 Seonho AN 
