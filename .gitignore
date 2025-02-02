@@ -8,7 +8,8 @@
 !HELP.md
 !build.gradle
 !src/**
-!img/**
+!src/main/java/com/example/finconnect/**
+!img/
 
 # srcディレクトリ内の不要なファイルを除外
 src/**/build/
