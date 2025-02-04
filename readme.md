@@ -103,17 +103,22 @@ src/
 ## 主要API一覧
 
 ### 認証関連
-- `POST /api/v1/auth/signup` - 会員登録
-- `POST /api/v1/auth/login` - ログイン
+- `POST /api/v1/users/` - 会員登録
+- `POST /api/v1/users/authenticate` - ログイン
 
 ### ユーザー関連
-- `GET /api/v1/users` - ユーザー検索
-- `GET /api/v1/users/{username}` - ユーザー情報取得
-- `PATCH /api/v1/users/{username}` - ユーザー情報更新
+- `GET /api/v1/users` - 全ユーザー検索
+- `GET /api/v1/users/{username}` - 特定ユーザー情報取得
+- `GET /api/v1/users/{username}/posts` - 特定ユーザー投稿取得
+- `GET /api/v1/users/{username}/replies` - 特定ユーザーコメント一覧取得（画面未作成）
+- `GET /api/v1/users/{username}/liked-users"` - 特定ユーザーのいいね一覧取得（画面未作成）
+- `PATCH /api/v1/users/{username}` - 特定ユーザー情報更新
 
 ### 投稿関連
 - `GET /api/v1/posts` - 投稿一覧取得
+- `GET /api/v1/posts/{postId}/liked-users` - 投稿にいいねしたユーザーの一覧取得
 - `POST /api/v1/posts` - 投稿作成
+- `POST /api/v1/posts/{postId}/likes` - 投稿にいいねORいいねの取り消し
 - `PATCH /api/v1/posts/{postId}` - 投稿更新
 - `DELETE /api/v1/posts/{postId}` - 投稿削除
 
@@ -124,14 +129,10 @@ src/
 - `DELETE /api/v1/posts/{postId}/replies/{replyId}` - 返信削除
 
 ### ソーシャル機能
-- `POST /api/v1/users/{username}/follow` - フォロー
-- `DELETE /api/v1/users/{username}/follow` - フォロー解除
+- `POST /api/v1/users/{username}/follows` - フォロー
+- `DELETE /api/v1/users/{username}/follows` - フォロー解除
 - `GET /api/v1/users/{username}/followers` - フォロワー一覧
 - `GET /api/v1/users/{username}/following` - フォロー中一覧
-
-### いいね機能
-- `POST /api/v1/posts/{postId}/like` - いいね切り替え
-- `GET /api/v1/posts/{postId}/likes` - いいねユーザー一覧
 
 ### 認証
 すべてのAPI（認証系を除く）は、以下の形式でJWTトークンが必要：
