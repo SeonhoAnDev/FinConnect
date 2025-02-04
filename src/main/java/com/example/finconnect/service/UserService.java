@@ -172,8 +172,8 @@ public class UserService implements UserDetailsService {
         followEntityRepository.delete(followEntity);
 
         following.setFollowersCount(Math.max(0, following.getFollowersCount() - 1));
-        currentUser.setFollowingsCount(Math.max(0, following.getFollowingsCount() - 1));
-
+        currentUser.setFollowingsCount(Math.max(0, currentUser.getFollowingsCount() - 1));
+        
         userEntityRepository.saveAll(List.of(following, currentUser));
 
         return User.from(following, false);
