@@ -52,6 +52,7 @@ public class ReplyService {
         return Reply.from(replyEntity);
     }
 
+    @Transactional
     public Reply updateReply(
             Long postId,
             Long replyId,
@@ -63,7 +64,7 @@ public class ReplyService {
                         () -> new PostNotFoundException(postId));
         var replyEntity = replyEntityRepository.findById(replyId)
                 .orElseThrow(() -> new ReplyNotFoundException(replyId));
-        if (replyEntity.getUser().equals(currentUser)) {
+        if (!replyEntity.getUser().equals(currentUser)) {
             throw new UserNotAllowedException();
         }
         replyEntity.setBody(replypatchRequestBody.body());

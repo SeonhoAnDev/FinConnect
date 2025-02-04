@@ -83,20 +83,24 @@ public class UserController {
         var followings = userService.getFollowingsByUsername(username, (UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(followings);
     }
-
+    // ユーザーのコメント（返信）を取得するエンドポイント
     @GetMapping("/{username}/replies")
-    public ResponseEntity<List<LikedUser>> getLikedUserByUser(
-            @PathVariable String username, Authentication authentication) {
-        var likedUsers =
-                userService.getLikedUsersByUser(username, (UserEntity) authentication.getPrincipal());
-        return ResponseEntity.ok(likedUsers);
-    }
-
-    @GetMapping("/{username}/liked-users")
     public ResponseEntity<List<Reply>> getRepliesByUser(
             @PathVariable String username) {
         var replies = replyService.getRepliesByUser(username);
         return ResponseEntity.ok(replies);
+    }
+
+    // ユーザーがいいねしたユーザー一覧を取得するエンドポイント
+    @GetMapping("/{username}/liked-users")
+    public ResponseEntity<List<LikedUser>> getLikedUserByUser(
+            @PathVariable String username,
+            Authentication authentication) {
+        var likedUsers = userService.getLikedUsersByUser(
+                username,
+                (UserEntity) authentication.getPrincipal()
+        );
+        return ResponseEntity.ok(likedUsers);
     }
 
     @PostMapping
