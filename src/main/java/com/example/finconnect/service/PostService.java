@@ -51,7 +51,7 @@ public class PostService {
         return Post.from(postEntity, isLiking);
     }
 
-    public Post creatPost(PostPostRequestBody postpostRequestBody, UserEntity currentUser) {
+    public Post createPost(PostPostRequestBody postpostRequestBody, UserEntity currentUser) {
         var savedPostEntity =
                 postEntityRepository.save(
                         PostEntity.of(postpostRequestBody.body(), currentUser)

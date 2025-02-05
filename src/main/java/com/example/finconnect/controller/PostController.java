@@ -33,9 +33,18 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getPosts(Authentication authentication) {
+    public ResponseEntity<List<Post>> getPosts(
+            @RequestParam(required = false) String keyword,
+            Authentication authentication) {
         logger.info("GET /api/v1/posts");
-        var posts = postService.getPosts((UserEntity) authentication.getPrincipal());
+        var currentUser = (UserEntity) authentication.getPrincipal();
+        
+        if (keyword != null && !keyword.isBlank()) {
+            var posts = postService.searchPostsByBody(keyword, currentUser);
+            return ResponseEntity.ok(posts);
+        }
+        
+        var posts = postService.getPosts(currentUser);
         return ResponseEntity.ok(posts);
     }
 
@@ -57,10 +66,10 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> creatPost(
+    public ResponseEntity<Post> createPost(
             @RequestBody PostPostRequestBody postPostRequestBody, Authentication authentication) {
         logger.info("POST /api/v1/posts");
-        var post = postService.creatPost(postPostRequestBody, (UserEntity) authentication.getPrincipal());
+        var post = postService.createPost(postPostRequestBody, (UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(post);
     }
 
@@ -83,16 +92,5 @@ public class PostController {
     public ResponseEntity<Post> toggleLike(@PathVariable Long postId, Authentication authentication) {
         var post = postService.toggleLike(postId, (UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(post);
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Post>> searchPosts(
-            @RequestParam String keyword,
-            Authentication authentication) {
-        var posts = postService.searchPostsByBody(
-                keyword,
-                (UserEntity) authentication.getPrincipal()
-        );
-        return ResponseEntity.ok(posts);
     }
 }
