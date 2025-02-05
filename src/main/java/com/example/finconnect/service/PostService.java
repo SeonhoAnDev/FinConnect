@@ -116,4 +116,15 @@ public class PostService {
             return Post.from(postEntityRepository.save(postEntity), true);
         }
     }
+
+    public List<Post> searchPostsByBody(String keyword, UserEntity currentUser) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        var postEntities = postEntityRepository.findByBodyContainingIgnoreCase(keyword);
+        return postEntities.stream()
+                .map(postEntity -> getPostWithLikingStatus(postEntity, currentUser))
+                .toList();
+    }
 }

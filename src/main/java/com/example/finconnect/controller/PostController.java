@@ -84,4 +84,15 @@ public class PostController {
         var post = postService.toggleLike(postId, (UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(post);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Post>> searchPosts(
+            @RequestParam String keyword,
+            Authentication authentication) {
+        var posts = postService.searchPostsByBody(
+                keyword,
+                (UserEntity) authentication.getPrincipal()
+        );
+        return ResponseEntity.ok(posts);
+    }
 }
