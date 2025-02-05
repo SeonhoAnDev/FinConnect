@@ -1,6 +1,5 @@
 package com.example.finconnect.controller;
 
-import com.example.finconnect.model.entity.PostEntity;
 import com.example.finconnect.model.entity.UserEntity;
 import com.example.finconnect.model.post.Post;
 import com.example.finconnect.model.reply.Reply;
@@ -10,11 +9,15 @@ import com.example.finconnect.service.ReplyService;
 import com.example.finconnect.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -27,10 +30,21 @@ public class UserController {
     ReplyService replyService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(
-            @RequestParam(required = false) String query, Authentication authentication) {
-        var users = userService.getUsers(query, (UserEntity) authentication.getPrincipal());
-        return ResponseEntity.ok(users);
+    public ResponseEntity<Map<String, Object>> getAllUsers(
+            @RequestParam(required = false) String query,
+            @RequestParam(defaultValue = "0") int page,
+            Authentication authentication) {
+        final int PAGE_SIZE = 20;
+        var pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("createddatetime").descending());
+        
+        var userPage = userService.getUsers(query, (UserEntity) authentication.getPrincipal(), pageable);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", userPage.getContent());
+        response.put("totalPages", userPage.getTotalPages());
+        response.put("hasNext", userPage.hasNext());
+        
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{username}")

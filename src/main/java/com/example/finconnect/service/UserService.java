@@ -17,6 +17,8 @@ import com.example.finconnect.repository.LikeEntityRepository;
 import com.example.finconnect.repository.PostEntityRepository;
 import com.example.finconnect.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -77,17 +79,14 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> getUsers(String query, UserEntity currentUser) {
-        List<UserEntity> userEntities;
+    public Page<User> getUsers(String query, UserEntity currentUser, Pageable pageable) {
+        Page<UserEntity> userEntities;
         if (query != null && !query.isBlank()) {
-            //特定ユーザー検索機能　queryを元にusernameで検索
-            userEntities = userEntityRepository.findByUsernameContaining(query);
+            userEntities = userEntityRepository.findByUsernameContaining(query, pageable);
         } else {
-            userEntities = userEntityRepository.findAll();
+            userEntities = userEntityRepository.findAll(pageable);
         }
-        return userEntities.stream()
-                .map(userEntity -> getUserWithFollowingStatus(userEntity, currentUser))
-                .toList();
+        return userEntities.map(userEntity -> getUserWithFollowingStatus(userEntity, currentUser));
     }
 
     public User getUser(String username, UserEntity currentUser) {

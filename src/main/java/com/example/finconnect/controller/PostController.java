@@ -10,12 +10,17 @@ import com.example.finconnect.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -33,19 +38,27 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getPosts(
+    public ResponseEntity<Map<String, Object>> getPosts(
             @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
             Authentication authentication) {
-        logger.info("GET /api/v1/posts");
+        final int PAGE_SIZE = 10;
         var currentUser = (UserEntity) authentication.getPrincipal();
+        var pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("createdDateTime").descending());
         
+        Page<Post> postPage;
         if (keyword != null && !keyword.isBlank()) {
-            var posts = postService.searchPostsByBody(keyword, currentUser);
-            return ResponseEntity.ok(posts);
+            postPage = postService.searchPostsByBody(keyword, currentUser, pageable);
+        } else {
+            postPage = postService.getPosts(currentUser, pageable);
         }
         
-        var posts = postService.getPosts(currentUser);
-        return ResponseEntity.ok(posts);
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", postPage.getContent());
+        response.put("totalPages", postPage.getTotalPages());
+        response.put("hasNext", postPage.hasNext());
+        
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{postId}")

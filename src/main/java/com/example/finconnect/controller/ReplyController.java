@@ -6,11 +6,14 @@ import com.example.finconnect.model.reply.ReplyPatchRequestBody;
 import com.example.finconnect.model.reply.ReplyPostRequestBody;
 import com.example.finconnect.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/posts/{postId}/replies")
@@ -20,9 +23,20 @@ public class ReplyController {
     private ReplyService replyService;
 
     @GetMapping
-    public ResponseEntity<List<Reply>> getRepliesByPostId(@PathVariable Long postId) {
-        var replies = replyService.getRepliesByPostId(postId);
-        return ResponseEntity.ok(replies);
+    public ResponseEntity<Map<String, Object>> getRepliesByPostId(
+            @PathVariable Long postId,
+            @RequestParam(defaultValue = "0") int page) {
+        final int PAGE_SIZE = 20;
+        var pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("createdDateTime").descending());
+        
+        var replyPage = replyService.getRepliesByPostId(postId, pageable);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", replyPage.getContent());
+        response.put("totalPages", replyPage.getTotalPages());
+        response.put("hasNext", replyPage.hasNext());
+        
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping

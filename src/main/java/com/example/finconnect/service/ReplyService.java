@@ -15,6 +15,8 @@ import com.example.finconnect.repository.PostEntityRepository;
 import com.example.finconnect.repository.ReplyEntityRepository;
 import com.example.finconnect.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +33,11 @@ public class ReplyService {
     @Autowired
     private UserEntityRepository userEntityRepository;
 
-    public List<Reply> getRepliesByPostId(Long postId) {
-        var postEntity =
-                postEntityRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
-
-        var replyEntities = replyEntityRepository.findByPost(postEntity);
-        return replyEntities.stream().map(Reply::from).toList();
+    public Page<Reply> getRepliesByPostId(Long postId, Pageable pageable) {
+        var postEntity = postEntityRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
+        var replyEntities = replyEntityRepository.findByPost(postEntity, pageable);
+        return replyEntities.map(Reply::from);
     }
 
     @Transactional
