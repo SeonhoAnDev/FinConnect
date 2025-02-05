@@ -27,7 +27,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
 
-    //todo 修正必要①
     @Autowired
     private UserService userService;
     private static final List<String> EXCLUDE_URL_PATTERNS = Arrays.asList(
@@ -37,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request, @NonNull HttpServletResponse response,@NonNull FilterChain filterChain)
+            HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         String BEARER_PREFIX = "Bearer ";
         var authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -45,7 +44,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         String method = request.getMethod();
 
-        //todo 修正後削除必要①
         if ("POST".equalsIgnoreCase(method)) {
             for (String pattern : EXCLUDE_URL_PATTERNS) {
                 if (requestURI.matches(pattern)) {
@@ -74,5 +72,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
 }

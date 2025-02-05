@@ -43,11 +43,9 @@ public class webConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         (requests) -> requests
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/users/authenticate").permitAll()
-                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // OPTIONS 요청 허용
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(
@@ -61,6 +59,5 @@ public class webConfiguration {
         return http.build();
     }
 }
-
 
 
