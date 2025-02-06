@@ -20,8 +20,8 @@ public record LikedUser(
     public static LikedUser from(User user, Long likedPostId, ZonedDateTime likeddatetime) {
         return new LikedUser(
                 user.userId(),
-                user.profile(),
                 user.username(),
+                user.profile(),
                 user.description(),
                 user.followingsCount(),
                 user.followersCount(),

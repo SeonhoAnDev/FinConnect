@@ -20,6 +20,7 @@ spring:
 logging:
   level:
     root: warn
+    root: trace
     org:
       springframework:
         security:
