@@ -19,7 +19,7 @@ spring:
       password: root
 
 jwt:
-  secret-key: VrOV7qcBRFy82Ueg1bJQXVBj5tl4blpR
+  secret-key: VrOV7qcBRFy82Ueg1bJQXVBj5tl4blpR1234567890abcdef
 
 logging:
   level:

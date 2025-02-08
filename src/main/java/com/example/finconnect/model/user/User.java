@@ -2,7 +2,7 @@ package com.example.finconnect.model.user;
 
 import com.example.finconnect.model.entity.UserEntity;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 public record User(
         Long userId,
@@ -11,10 +11,18 @@ public record User(
         String description,
         Long followersCount,
         Long followingsCount,
-        ZonedDateTime createddatetime,
-        ZonedDateTime updateddatetime,
-        ZonedDateTime deleteddatetime,
+        Instant createddatetime,
+        Instant updateddatetime,
+        Instant deleteddatetime,
         Boolean isFollowing) {
+
+    public static User from(Long userId, String username, String profile, String description,
+                            Long followersCount, Long followingsCount, Instant createdDateTime,
+                            Instant updatedDateTime, Boolean isFollowing) {
+        return new User(userId, username, profile, description, followersCount, followingsCount,
+                createdDateTime, updatedDateTime, null, isFollowing);
+    }
+
     public static User from(UserEntity user) {
         return new User(
                 user.getUserId(),
@@ -23,9 +31,9 @@ public record User(
                 user.getDescription(),
                 user.getFollowersCount(),
                 user.getFollowingsCount(),
-                user.getCreateddatetime(),
-                user.getUpdateddatetime(),
-                user.getDeleteddatetime(),
+                user.getCreateddatetime().toInstant(),
+                user.getUpdateddatetime().toInstant(),
+                user.getDeleteddatetime() != null ? user.getDeleteddatetime().toInstant() : null,
                 null);
     }
 
@@ -37,9 +45,9 @@ public record User(
                 user.getDescription(),
                 user.getFollowersCount(),
                 user.getFollowingsCount(),
-                user.getCreateddatetime(),
-                user.getUpdateddatetime(),
-                user.getDeleteddatetime(),
+                user.getCreateddatetime().toInstant(),
+                user.getUpdateddatetime().toInstant(),
+                user.getDeleteddatetime() != null ? user.getDeleteddatetime().toInstant() : null,
                 isFollowing);
     }
 }

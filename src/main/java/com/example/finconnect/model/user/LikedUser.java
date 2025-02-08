@@ -1,8 +1,6 @@
 package com.example.finconnect.model.user;
 
-import com.example.finconnect.model.entity.UserEntity;
-
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 public record LikedUser(
         Long userId,
@@ -11,20 +9,21 @@ public record LikedUser(
         String description,
         Long followersCount,
         Long followingsCount,
-        ZonedDateTime createddatetime,
-        ZonedDateTime updateddatetime,
-        ZonedDateTime deleteddatetime,
+        Instant createddatetime,
+        Instant updateddatetime,
+        Instant deleteddatetime,
         Boolean isFollowing,
         Long likedPostId,
-        ZonedDateTime likeddatetime) {
-    public static LikedUser from(User user, Long likedPostId, ZonedDateTime likeddatetime) {
+        Instant likeddatetime) {
+
+    public static LikedUser from(User user, Long likedPostId, Instant likeddatetime) {
         return new LikedUser(
                 user.userId(),
                 user.username(),
                 user.profile(),
                 user.description(),
-                user.followingsCount(),
                 user.followersCount(),
+                user.followingsCount(),
                 user.createddatetime(),
                 user.updateddatetime(),
                 user.deleteddatetime(),
