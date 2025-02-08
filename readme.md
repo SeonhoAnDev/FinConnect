@@ -84,6 +84,9 @@
 ### 開発ツール
 - Postman（API テスト）
 
+## ERD
+![ERD](ERD.png)
+
 ## システム構成図
 ```
 src/
