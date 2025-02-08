@@ -17,10 +17,13 @@ spring:
     user:
       name: finConnect-master
       password: root
+
+jwt:
+  secret-key: VrOV7qcBRFy82Ueg1bJQXVBj5tl4blpR
+
 logging:
   level:
     root: warn
-    root: trace
     org:
       springframework:
         security:
