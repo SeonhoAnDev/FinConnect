@@ -1,5 +1,5 @@
 # FinConnect
-
+URL:https://finconnect-sono.netlify.app/signup
 ## プロジェクト概要
 金融系SNSアプリケーションのバックエンド開発プロジェクトです。ユーザー同士が金融に関する情報を共有し、コミュニケーションを取ることができるプラットフォームを目指しています。
 
