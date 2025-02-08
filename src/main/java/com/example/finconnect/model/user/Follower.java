@@ -2,6 +2,7 @@ package com.example.finconnect.model.user;
 
 import com.example.finconnect.model.entity.UserEntity;
 
+import java.time.Instant;
 import java.time.ZonedDateTime;
 
 public record Follower(
@@ -11,9 +12,9 @@ public record Follower(
         String description,
         Long followersCount,
         Long followingsCount,
-        ZonedDateTime createddatetime,
-        ZonedDateTime updateddatetime,
-        ZonedDateTime deleteddatetime,
+        Instant createddatetime,
+        Instant updateddatetime,
+        Instant deleteddatetime,
         ZonedDateTime followeddatetime,
         Boolean isFollowing) {
     public static Follower from(User user, ZonedDateTime followeddatetime) {

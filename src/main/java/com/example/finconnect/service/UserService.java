@@ -12,6 +12,7 @@ import com.example.finconnect.model.entity.LikeEntity;
 import com.example.finconnect.model.entity.PostEntity;
 import com.example.finconnect.model.entity.UserEntity;
 import com.example.finconnect.model.user.*;
+import com.example.finconnect.projection.UserWhoLikedPostWithFollowingStatusProjection;
 import com.example.finconnect.repository.FollowEntityRepository;
 import com.example.finconnect.repository.LikeEntityRepository;
 import com.example.finconnect.repository.PostEntityRepository;
@@ -220,21 +221,48 @@ public class UserService implements UserDetailsService {
         var userWithFollowingStatus =
                 getUserWithFollowingStatus(likedUserEntity, currentUser);
         return LikedUser.from(
-                userWithFollowingStatus, postEntity.getPostId(), likeEntity.getCreatedDateTime());
+                userWithFollowingStatus, 
+                postEntity.getPostId(), 
+                likeEntity.getCreatedDateTime().toInstant()  // ZonedDateTime을 Instant로 변환
+        );
     }
 
     public List<LikedUser> getLikedUsersByUser(String username, UserEntity currentUser) {
-        var userEntity =
-                userEntityRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        var userEntity = userEntityRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
-        var postEntities = postEntityRepository.findByUser(userEntity);
-        return postEntities.stream()
-                .flatMap(
-                        postEntity ->
-                                likeEntityRepository.findByPost(postEntity).stream()
-                                        .map(
-                                                likeEntity ->
-                                                        getLikedUserWithFollowingStatus(likeEntity, postEntity, currentUser)))
+        var likedUsersProjection = userEntityRepository.findUsersWhoLikedPostByUserIdWithFollowingStatus(
+                userEntity.getUserId(), currentUser.getUserId());
+
+        return likedUsersProjection.stream()
+                .map(projection -> {
+                    User user = new User(
+                            projection.getUserId(),
+                            projection.getUsername(),
+                            projection.getProfile(),
+                            projection.getDescription(),
+                            projection.getFollowersCount(),
+                            projection.getFollowingsCount(),
+                            projection.getCreatedDateTime(),  // Instant 타입 그대로 사용
+                            projection.getUpdatedDateTime(),  // Instant 타입 그대로 사용
+                            null,  // Assuming deleteddatetime is not needed here
+                            projection.getIsFollowing()
+                    );
+                    return new LikedUser(
+                            user.userId(),
+                            user.username(),
+                            user.profile(),
+                            user.description(),
+                            user.followersCount(),
+                            user.followingsCount(),
+                            user.createddatetime(),
+                            user.updateddatetime(),
+                            null,  // Assuming deleteddatetime is not needed here
+                            user.isFollowing(),
+                            projection.getLikedPostId(),
+                            projection.getLikedDateTime()
+                    );
+                })
                 .toList();
     }
 }
