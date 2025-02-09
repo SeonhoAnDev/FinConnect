@@ -89,19 +89,7 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
 <img src="img/モバイル２.png" width="200" height="300">
 
 ## ERD
-![ERD](ERD.png)
-
-## アーキテクチャ構造
-#### 現在
-![アーキテクチャ構造](img/現在.png)
-
-#### 完成予想図（変更可能性あり）
-![完成予想図](img/AWS利用予想.png)
-<img src="img/モバイル１.png" width="200" height="300">
-<img src="img/モバイル２.png" width="200" height="300">
-
-## ERD
-![ERD](ERD.png)
+![ERD](img/ERD.png)
 
 ## アーキテクチャ構造
 #### 現在
