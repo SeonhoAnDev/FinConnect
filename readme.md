@@ -13,16 +13,12 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
 - **ログイン**: 登録済みユーザーの認証を行い、JWTトークンを発行します。
 - **セキュリティ**: JWTとBCryptを使用したセキュアな認証システムを提供します。
 
+<div style="display: flex; gap: 10px; flex-wrap: wrap; overflow-x: auto;">
 <img src="img/会員登録.jpeg" width="250" height="250">
 <img src="img/ログイン.jpeg" width="250" height="250">
 <img src="img/ホーム.jpeg" width="250" height="250">
-- **ユーザー登録**: 新規ユーザーの登録を行います。
-- **ログイン**: 登録済みユーザーの認証を行い、JWTトークンを発行します。
-- **セキュリティ**: JWTとBCryptを使用したセキュアな認証システムを提供します。
+</div>
 
-<img src="img/会員登録.jpeg" width="250" height="250">
-<img src="img/ログイン.jpeg" width="250" height="250">
-<img src="img/ホーム.jpeg" width="250" height="250">
 
 ### 2. 投稿機能
 - **掲示物作成**: ユーザーが新しい掲示物を作成できます。
@@ -30,63 +26,45 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
 - **掲示物削除**: 掲示物を削除することができます。
 - **いいね機能**: 掲示物に対して「いいね」を付けたり外したりできます。
 - **コメント機能**: 掲示物にコメントを追加できます。
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap; overflow-x: auto;">
 <img src="img/掲示物作成.png" width="250" height="250">
 <img src="img/掲示物編集.png" width="250" height="250">
 <img src="img/掲示物削除.png" width="250" height="250">
 <img src="img/いいね.png" width="250" height="250">
 <img src="img/コメント.jpeg" width="250" height="250">
 <img src="img/いいね一覧.png" width="250" height="250">
-
-- **掲示物作成**: ユーザーが新しい掲示物を作成できます。
-- **掲示物編集**: 作成した掲示物の内容を編集できます。
-- **掲示物削除**: 掲示物を削除することができます。
-- **いいね機能**: 掲示物に対して「いいね」を付けたり外したりできます。
-- **コメント機能**: 掲示物にコメントを追加できます。
-<img src="img/掲示物作成.png" width="250" height="250">
-<img src="img/掲示物編集.png" width="250" height="250">
-<img src="img/掲示物削除.png" width="250" height="250">
-<img src="img/いいね.png" width="250" height="250">
-<img src="img/コメント.jpeg" width="250" height="250">
-<img src="img/いいね一覧.png" width="250" height="250">
-
+</div>
 
 ### 3. プロフィール管理
 - **プロフィール表示**: ユーザーのプロフィール情報を表示します。
 - **プロフィール編集**: プロフィール情報を編集できます。
 - **フォロワー/フォロー中の表示**: ユーザーのフォロワーとフォロー中のユーザーを表示します。
 
+<div style="display: flex; gap: 10px; flex-wrap: wrap; overflow-x: auto;">
 <img src="img/プロフィール管理画面.png" width="250" height="250">
 <img src="img/プロフィール編集機能.png" width="250" height="250">
 <img src="img/フォロワー一覧.png" width="250" height="250">
 <img src="img/フォロー中一覧.png" width="250" height="250">
-- **プロフィール表示**: ユーザーのプロフィール情報を表示します。
-- **プロフィール編集**: プロフィール情報を編集できます。
-- **フォロワー/フォロー中の表示**: ユーザーのフォロワーとフォロー中のユーザーを表示します。
-
-<img src="img/プロフィール管理画面.png" width="250" height="250">
-<img src="img/プロフィール編集機能.png" width="250" height="250">
-<img src="img/フォロワー一覧.png" width="250" height="250">
-<img src="img/フォロー中一覧.png" width="250" height="250">
+</div>
 
 ### 4. ユーザー検索とフォロー
 - **ユーザー検索**: ユーザー名で他のユーザーを検索できます。
 - **投稿検索**: 投稿内容で投稿を検索できます。
 - **フォロー/フォロー解除**: 他のユーザーをフォローしたり、フォローを解除したりできます。
 
+<div style="display: flex; gap: 10px; flex-wrap: wrap; overflow-x: auto;">
 <img src="img/ユーザー検索.png" width="250" height="250">
 <img src="img/投稿検索.png" width="250" height="250">
 <img src="img/フォロー解除.png" width="250" height="250">
-- **ユーザー検索**: ユーザー名で他のユーザーを検索できます。
-- **投稿検索**: 投稿内容で投稿を検索できます。
-- **フォロー/フォロー解除**: 他のユーザーをフォローしたり、フォローを解除したりできます。
-
-<img src="img/ユーザー検索.png" width="250" height="250">
-<img src="img/投稿検索.png" width="250" height="250">
-<img src="img/フォロー解除.png" width="250" height="250">
+</div>
 
 ### 5. モバイル対応
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap; overflow-x: auto;">
 <img src="img/モバイル１.png" width="200" height="300">
 <img src="img/モバイル２.png" width="200" height="300">
+</div>
 
 ## ERD
 ![ERD](img/ERD.png)
