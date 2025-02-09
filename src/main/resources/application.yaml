@@ -5,7 +5,11 @@ spring:
     hibernate:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       ddl-auto: create-drop
+=======
+      ddl-auto: update
+>>>>>>> Stashed changes
 =======
       ddl-auto: update
 >>>>>>> Stashed changes
