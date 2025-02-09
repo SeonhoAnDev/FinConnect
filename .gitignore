@@ -9,7 +9,6 @@
 !build.gradle
 !src/
 !img/
-!ERD.png
 
 # srcディレクトリの設定
 !src/**

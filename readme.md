@@ -84,9 +84,6 @@ URL:https://finconnect-sono.netlify.app/signup
 ### 開発ツール
 - Postman（API テスト）
 
-## ERD
-![ERD](ERD.png)
-
 ## システム構成図
 ```
 src/
