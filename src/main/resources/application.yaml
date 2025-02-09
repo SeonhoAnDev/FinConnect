@@ -3,7 +3,11 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
+<<<<<<< Updated upstream
       ddl-auto: create-drop
+=======
+      ddl-auto: update
+>>>>>>> Stashed changes
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:

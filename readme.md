@@ -1,72 +1,67 @@
 # FinConnect
 URL:https://finconnect-sono.netlify.app/signup
 ## プロジェクト概要
-金融系SNSアプリケーションのバックエンド開発プロジェクトです。ユーザー同士が金融に関する情報を共有し、コミュニケーションを取ることができるプラットフォームを目指しています。
+FinConnectは、金融に関する情報を共有し、ユーザー同士がコミュニケーションを取ることができる金融系SNSアプリケーションのバックエンド開発プロジェクトです。
 
-## 主な機能と画面
+## 主な機能
 
 ### 1. ユーザー認証
-<div align="center">
-<img src="./img/会員登録.jpeg" width="400">
-<img src="./img/会員登録.jpeg" width="400">
-<img src="./img/ログイン.jpeg" width="400">
-</div>
+- **ユーザー登録**: 新規ユーザーの登録を行います。
+- **ログイン**: 登録済みユーザーの認証を行い、JWTトークンを発行します。
+- **セキュリティ**: JWTとBCryptを使用したセキュアな認証システムを提供します。
 
-- ユーザー登録・ログイン機能
-- セキュアな認証システム(JWT、BCrypt)
+<img src="img/会員登録.jpeg" width="250" height="250">
+<img src="img/ログイン.jpeg" width="250" height="250">
+<img src="img/ホーム.jpeg" width="250" height="250">
 
 ### 2. 投稿機能
-<div align="center">
-<img src="./img/掲示物画面（いいね）.jpeg" width="400">
-<img src="./img/掲示物作成.png" width="400">
-<img src="./img/コメント機能２.jpeg" width="400">
-</div>
+- **掲示物作成**: ユーザーが新しい掲示物を作成できます。
+- **掲示物編集**: 作成した掲示物の内容を編集できます。
+- **掲示物削除**: 掲示物を削除することができます。
+- **いいね機能**: 掲示物に対して「いいね」を付けたり外したりできます。
+- **コメント機能**: 掲示物にコメントを追加できます。
+<img src="img/掲示物作成.png" width="250" height="250">
+<img src="img/掲示物編集.png" width="250" height="250">
+<img src="img/掲示物削除.png" width="250" height="250">
+<img src="img/いいね.png" width="250" height="250">
+<img src="img/コメント.jpeg" width="250" height="250">
+<img src="img/いいね一覧.png" width="250" height="250">
 
-- 投稿作成・編集・削除
-- いいね機能
-- コメント機能
 
 ### 3. プロフィール管理
-<div align="center">
-<img src="./img/プロフィール機能.jpeg" width="400">
-<img src="./img/プロフィール編集機能.jpeg" width="400">
-</div>
+- **プロフィール表示**: ユーザーのプロフィール情報を表示します。
+- **プロフィール編集**: プロフィール情報を編集できます。
+- **フォロワー/フォロー中の表示**: ユーザーのフォロワーとフォロー中のユーザーを表示します。
 
-- プロフィール情報の表示・編集
-- フォロワー/フォロー中の表示
+<img src="img/プロフィール管理画面.png" width="250" height="250">
+<img src="img/プロフィール編集機能.png" width="250" height="250">
+<img src="img/フォロワー一覧.png" width="250" height="250">
+<img src="img/フォロー中一覧.png" width="250" height="250">
 
 ### 4. ユーザー検索とフォロー
-<div align="center">
-<img src="./img/ユーザー検索（フォロー機能）.jpeg" width="400">
-</div>
+- **ユーザー検索**: ユーザー名で他のユーザーを検索できます。
+- **投稿検索**: 投稿内容で投稿を検索できます。
+- **フォロー/フォロー解除**: 他のユーザーをフォローしたり、フォローを解除したりできます。
 
-- ユーザー検索機能
-- フォロー/フォロー解除
+<img src="img/ユーザー検索.png" width="250" height="250">
+<img src="img/投稿検索.png" width="250" height="250">
+<img src="img/フォロー解除.png" width="250" height="250">
 
 ### 5. モバイル対応
-<div align="center">
-<img src="./img/モバイル.png" width="250">
-</div>
+<img src="img/モバイル１.png" width="200" height="300">
+<img src="img/モバイル２.png" width="200" height="300">
 
-- スマートフォンに最適化された表示
-- モバイルフレンドリーなUI
+## ERD
+![ERD](ERD.png)
 
-### 6. ホーム画面
-<div align="center">
-<img src="./img/ホーム（今後API実装予定）.jpeg" width="400">
-</div>
+## アーキテクチャ構造
+#### 現在
+![アーキテクチャ構造](img/現在.png)
 
-- 今後API実装予定
-
-### 開発予定の機能
-- 金融関連ダッシュボード
-- 経済ニュースフィード
-- 独自の本人認証システム
-- リアルタイムチャット機能
-- イベント管理システム
+#### 完成予想図（変更可能性あり）
+![完成予想図](img/AWS利用予想.png)
 
 ## 使用技術
-
 ### バックエンド
 - **メイン言語・フレームワーク**
   - Java
@@ -81,9 +76,24 @@ URL:https://finconnect-sono.netlify.app/signup
   - JWT（JSON Web Token）
   - BCrypt暗号化
 
-### 開発ツール
-- Postman（API テスト）
+### フロントエンド
+  - Next.js
+  - Tailwind CSS
+  - v0 & Bing Copilot
 
+<<<<<<< Updated upstream
+=======
+### 開発ツール
+- Postman
+- IntelliJ IDEA
+- VS Code
+- GitHub
+- Docker
+
+### デプロイ
+- Netlify（デプロイ）, ngrok（ローカルサーバー公開）
+
+>>>>>>> Stashed changes
 ## システム構成図
 ```
 src/
@@ -101,36 +111,119 @@ src/
 ## 主要API一覧
 
 ### 認証関連
-- `POST /api/v1/users/` - 会員登録
-- `POST /api/v1/users/authenticate` - ログイン
+- **`POST /api/v1/users/` - 会員登録**
+  - **入力**: ユーザー名、パスワード
+  - **出力**: 登録されたユーザー情報
+  - **役割**: 新規ユーザーを登録します。
+
+- **`POST /api/v1/users/authenticate` - ログイン**
+  - **入力**: ユーザー名、パスワード
+  - **出力**: JWTトークン
+  - **役割**: ユーザーを認証し、トークンを発行します。
 
 ### ユーザー関連
-- `GET /api/v1/users` - 全ユーザー検索
-- `GET /api/v1/users/{username}` - 特定ユーザー情報取得
-- `GET /api/v1/users/{username}/posts` - 特定ユーザー投稿取得
-- `GET /api/v1/users/{username}/replies` - 特定ユーザーコメント一覧取得（画面未作成）
-- `GET /api/v1/users/{username}/liked-users"` - 特定ユーザーのいいね一覧取得（画面未作成）
-- `PATCH /api/v1/users/{username}` - 特定ユーザー情報更新
+- **`GET /api/v1/users` - 全ユーザー検索**
+  - **入力**: 検索クエリ、ページ情報
+  - **出力**: ユーザーのリスト
+  - **役割**: ユーザー名に基づいてユーザーを検索します。
+
+- **`GET /api/v1/users/{username}` - 特定ユーザー情報取得**
+  - **入力**: ユーザー名
+  - **出力**: ユーザー情報
+  - **役割**: 特定のユーザーの情報を取得します。
+
+- **`GET /api/v1/users/{username}/posts` - 特定ユーザー投稿取得**
+  - **入力**: ユーザー名
+  - **出力**: 投稿のリスト
+  - **役割**: 特定のユーザーが作成した投稿を取得します。
+
+- **`GET /api/v1/users/{username}/replies` - 特定ユーザーコメント一覧取得**
+  - **入力**: ユーザー名
+  - **出力**: コメントのリスト
+  - **役割**: 特定のユーザーが作成したコメントを取得します。
+
+- **`GET /api/v1/users/{username}/liked-users` - 特定ユーザーのいいね一覧取得**
+  - **入力**: ユーザー名
+  - **出力**: いいねしたユーザーのリスト
+  - **役割**: 特定のユーザーがいいねした投稿を取得します。
+
+- **`PATCH /api/v1/users/{username}` - 特定ユーザー情報更新**
+  - **入力**: ユーザー名、更新情報
+  - **出力**: 更新されたユーザー情報
+  - **役割**: ユーザー情報を更新します。
 
 ### 投稿関連
-- `GET /api/v1/posts` - 投稿一覧取得
-- `GET /api/v1/posts/{postId}/liked-users` - 投稿にいいねしたユーザーの一覧取得
-- `POST /api/v1/posts` - 投稿作成
-- `POST /api/v1/posts/{postId}/likes` - 投稿にいいねORいいねの取り消し
-- `PATCH /api/v1/posts/{postId}` - 投稿更新
-- `DELETE /api/v1/posts/{postId}` - 投稿削除
+- **`GET /api/v1/posts` - 投稿一覧取得**
+  - **入力**: ページ情報
+  - **出力**: 投稿のリスト
+  - **役割**: すべての投稿を取得します。
+
+- **`GET /api/v1/posts/{postId}/liked-users` - 投稿にいいねしたユーザーの一覧取得**
+  - **入力**: 投稿ID
+  - **出力**: いいねしたユーザーのリスト
+  - **役割**: 特定の投稿にいいねしたユーザーを取得します。
+
+- **`POST /api/v1/posts` - 投稿作成**
+  - **入力**: 投稿内容
+  - **出力**: 作成された投稿情報
+  - **役割**: 新しい投稿を作成します。
+
+- **`POST /api/v1/posts/{postId}/likes` - 投稿にいいねORいいねの取り消し**
+  - **入力**: 投稿ID
+  - **出力**: 更新された投稿情報
+  - **役割**: 投稿にいいねを付けたり外したりします。
+
+- **`PATCH /api/v1/posts/{postId}` - 投稿更新**
+  - **入力**: 投稿ID、更新内容
+  - **出力**: 更新された投稿情報
+  - **役割**: 投稿を更新します。
+
+- **`DELETE /api/v1/posts/{postId}` - 投稿削除**
+  - **入力**: 投稿ID
+  - **出力**: なし
+  - **役割**: 投稿を削除します。
 
 ### 返信関連
-- `GET /api/v1/posts/{postId}/replies` - 返信一覧取得
-- `POST /api/v1/posts/{postId}/replies` - 返信作成
-- `PATCH /api/v1/posts/{postId}/replies/{replyId}` - 返信更新
-- `DELETE /api/v1/posts/{postId}/replies/{replyId}` - 返信削除
+- **`GET /api/v1/posts/{postId}/replies` - 返信一覧取得**
+  - **入力**: 投稿ID、ページ情報
+  - **出力**: 返信のリスト
+  - **役割**: 特定の投稿に対する返信を取得します。
+
+- **`POST /api/v1/posts/{postId}/replies` - 返信作成**
+  - **入力**: 投稿ID、返信内容
+  - **出力**: 作成された返信情報
+  - **役割**: 新しい返信を作成します。
+
+- **`PATCH /api/v1/posts/{postId}/replies/{replyId}` - 返信更新**
+  - **入力**: 投稿ID、返信ID、更新内容
+  - **出力**: 更新された返信情報
+  - **役割**: 返信を更新します。
+
+- **`DELETE /api/v1/posts/{postId}/replies/{replyId}` - 返信削除**
+  - **入力**: 投稿ID、返信ID
+  - **出力**: なし
+  - **役割**: 返信を削除します。
 
 ### ソーシャル機能
-- `POST /api/v1/users/{username}/follows` - フォロー
-- `DELETE /api/v1/users/{username}/follows` - フォロー解除
-- `GET /api/v1/users/{username}/followers` - フォロワー一覧
-- `GET /api/v1/users/{username}/following` - フォロー中一覧
+- **`POST /api/v1/users/{username}/follows` - フォロー**
+  - **入力**: ユーザー名
+  - **出力**: フォローしたユーザー情報
+  - **役割**: 他のユーザーをフォローします。
+
+- **`DELETE /api/v1/users/{username}/follows` - フォロー解除**
+  - **入力**: ユーザー名
+  - **出力**: フォロー解除したユーザー情報
+  - **役割**: フォローを解除します。
+
+- **`GET /api/v1/users/{username}/followers` - フォロワー一覧**
+  - **入力**: ユーザー名
+  - **出力**: フォロワーのリスト
+  - **役割**: 特定のユーザーのフォロワーを取得します。
+
+- **`GET /api/v1/users/{username}/following` - フォロー中一覧**
+  - **入力**: ユーザー名
+  - **出力**: フォロー中のユーザーのリスト
+  - **役割**: 特定のユーザーがフォローしているユーザーを取得します。
 
 ### 認証
 すべてのAPI（認証系を除く）は、以下の形式でJWTトークンが必要：
@@ -150,6 +243,17 @@ Authorization: Bearer {access_token}
 - **フォロー/アンフォローのロジック**: 自分自身をフォローまたはアンフォローできないようにするための例外処理を追加しました。
 - **データ整合性の維持**: フォロー、いいね、コメントなどのカウントを正確に維持するために、トランザクションを使用しました。
 - **例外処理**: ユーザー、投稿、コメントの存在を確認し、適切な例外をスローしてユーザーに明確なフィードバックを提供しました。
+
+## 未来の計画
+
+- **金融関連ダッシュボード**: ユーザーが金融情報を一目で確認できるダッシュボードを開発予定。これにより、ユーザーは市場の動向を迅速に把握し、投資判断をサポートします。
+  
+- **経済ニュースフィード**: 最新の経済ニュースを提供するフィード機能を追加予定。ユーザーはリアルタイムで重要なニュースを受け取り、情報に基づいた意思決定を行うことができます。
+  
+- **リアルタイムチャット機能**: ユーザー間でのリアルタイムコミュニケーションを可能にするチャット機能を実装予定。これにより、ユーザーは金融に関する意見交換や情報共有を迅速に行うことができます。
+  
+- **イベント管理システム**: 金融関連イベントの管理と参加をサポートするシステムを開発予定。ユーザーはイベントに参加し、ネットワーキングや知識の向上を図ることができます。
+
 
 ## 開発者
 Seonho AN 
