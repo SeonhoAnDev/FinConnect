@@ -80,6 +80,7 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
   - Next.js
   - Tailwind CSS
   - v0 & Bing Copilot
+<<<<<<< Updated upstream
 
 <<<<<<< Updated upstream
 =======
@@ -90,6 +91,16 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
 - GitHub
 - Docker
 
+=======
+
+### 開発ツール
+- Postman
+- IntelliJ IDEA
+- VS Code
+- GitHub
+- Docker
+
+>>>>>>> Stashed changes
 ### デプロイ
 - Netlify（デプロイ）, ngrok（ローカルサーバー公開）
 
