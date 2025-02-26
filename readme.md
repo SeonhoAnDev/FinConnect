@@ -105,13 +105,6 @@ FinConnectは、金融に関する情報を共有し、ユーザー同士がコ�
 - GitHub
 - Docker
 
-### 開発ツール
-- Postman
-- IntelliJ IDEA
-- VS Code
-- GitHub
-- Docker
-
 ### デプロイ
 - Netlify（デプロイ）, ngrok（ローカルサーバー公開）
 
